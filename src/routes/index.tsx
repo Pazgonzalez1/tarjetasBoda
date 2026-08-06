@@ -1,25 +1,25 @@
 /* eslint-disable prettier/prettier */
 import { createFileRoute } from "@tanstack/react-router";
+import { useRef, useState } from "react";
 
 const designs = [
   {
     id: 1,
     title: "Diseño Simple",
     description: "Elegancia para tu gran día.",
-    // Extraemos el ID (1iFI64TtGXoMSHFAlAoTDNL1zrfyYRldq) y usamos este formato:
-    videoUrl: "https://drive.google.com/uc?export=download&id=1iFI64TtGXoMSHFAlAoTDNL1zrfyYRldq" 
+    videoUrl: "/video1.mp4" 
   },
   {
     id: 2,    
     title: "Diseño Premium",
     description: "Estilo limpio y contemporáneo. Verde oliva, blanco y negro",
-    videoUrl: "https://drive.google.com/uc?export=download&id=1uXLhn7EV5PDEGtj2OcOh4D0PyjhihVnn" 
+    videoUrl: "/video2.mp4" 
   },
   {
     id: 3,
     title: "Diseño Premium",
     description: "Elegante y formal. Blanco, negro y dorado",
-    videoUrl: "https://drive.google.com/uc?export=download&id=1miNwTwZoYwB5OE8kBwAPD0A2FSOB2XSf" 
+    videoUrl: "/video3.mp4" 
   },
 ];
 
@@ -50,6 +50,72 @@ export const Route = createFileRoute("/")({
   }),
 });
 
+function DesignCard({ design }: { design: typeof designs[0] }) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  // Ahora arranca en FALSE para que inicie pausado
+  const [isPlaying, setIsPlaying] = useState(false); 
+
+  const togglePlay = () => {
+    if (videoRef.current) {
+      if (isPlaying) {
+        videoRef.current.pause();
+      } else {
+        videoRef.current.play();
+      }
+      setIsPlaying(!isPlaying);
+    }
+  };
+
+  return (
+    <article className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition-shadow duration-300 hover:shadow-md">
+      <div className="aspect-[9/16] w-full bg-muted relative group">
+        <video
+          ref={videoRef}
+          src={design.videoUrl}
+          title={design.title}
+          className="h-full w-full object-cover"
+          // Le sacamos el autoPlay para que espere el clic
+          loop
+          muted
+          playsInline
+        />
+        
+        {/* Botón dinámico: cambia de clases según isPlaying */}
+        <button
+          onClick={togglePlay}
+          className={`absolute z-10 flex items-center justify-center rounded-full bg-black/50 text-white backdrop-blur-md transition-all duration-500 ease-in-out hover:bg-black/70 focus:outline-none ${
+            isPlaying
+              ? "bottom-4 right-4 h-10 w-10 shadow-md" // Reproduciendo: chiquito, abajo a la derecha
+              : "left-1/2 top-1/2 h-16 w-16 -translate-x-1/2 -translate-y-1/2 shadow-xl" // Pausado: grande, justo al medio
+          }`}
+          aria-label={isPlaying ? "Pausar video" : "Reproducir video"}
+        >
+          {isPlaying ? (
+            // Icono de Pausa chiquito
+            <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+            </svg>
+          ) : (
+            // Icono de Play más grande (con un margencito a la izquierda para que el triángulo se vea bien centrado)
+            <svg className="ml-1 h-8 w-8" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M8 5v14l11-7z"/>
+            </svg>
+          )}
+        </button>
+      </div>
+
+      <div className="p-5">
+        <h2 className="font-display text-xl font-medium text-card-foreground">
+          {design.title}
+        </h2>
+        <p className="mt-1 text-sm text-muted-foreground">
+          {design.description}
+        </p>
+      </div>
+    </article>
+  );
+}
+
 function Index() {
   return (
     <main className="romantic-bg min-h-screen px-5 py-8 sm:px-6 lg:px-8">
@@ -65,37 +131,12 @@ function Index() {
         </p>
       </header>
 
-<section
+      <section
         aria-label="Galería de diseños"
         className="mx-auto flex max-w-md flex-col gap-8"
       >
         {designs.map((design) => (
-          <article
-            key={design.id}
-            className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition-shadow duration-300 hover:shadow-md"
-          >
-            <div className="aspect-[9/16] w-full bg-muted relative">
-              <video
-                src={design.videoUrl}
-                title={design.title}
-                className="h-full w-full object-cover"
-                controls // Agrega controles nativos limpios
-                playsInline // Crucial para que no se abra en pantalla completa automático en iOS
-                controlsList="nodownload" // Oculta el botón de descargar
-                preload="metadata"
-                // Si querés que parezcan Reels que se reproducen solos sin botones, 
-                // sacá "controls" y poné: autoPlay loop muted
-              />
-            </div>
-            <div className="p-5">
-              <h2 className="font-display text-xl font-medium text-card-foreground">
-                {design.title}
-              </h2>
-              <p className="mt-1 text-sm text-muted-foreground">
-                {design.description}
-              </p>
-            </div>
-          </article>
+          <DesignCard key={design.id} design={design} />
         ))}
       </section>
     </main>
