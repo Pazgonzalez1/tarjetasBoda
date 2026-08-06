@@ -69,16 +69,16 @@ function DesignCard({ design }: { design: typeof designs[0] }) {
   return (
     <article className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition-shadow duration-300 hover:shadow-md">
       <div className="aspect-[9/16] w-full bg-muted relative group">
-        <video
-          ref={videoRef}
-          src={design.videoUrl}
-          title={design.title}
-          className="h-full w-full object-cover"
-          // Le sacamos el autoPlay para que espere el clic
-          loop
-          muted
-          playsInline
-        />
+<video
+  ref={videoRef}
+  src={design.videoUrl}
+  title={design.title}
+  className="h-full w-full object-cover"
+  loop
+  muted
+  playsInline
+  preload="metadata" // <--- Esta línea es clave para no saturar la red
+/>
         
         {/* Botón dinámico: cambia de clases según isPlaying */}
         <button
