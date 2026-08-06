@@ -6,19 +6,20 @@ const designs = [
     id: 1,
     title: "Diseño Simple",
     description: "Elegancia para tu gran día.",
-    driveUrl: "https://drive.google.com/file/d/1iFI64TtGXoMSHFAlAoTDNL1zrfyYRldq/preview" // <-- Agregas la URL aquí
+    // Extraemos el ID (1iFI64TtGXoMSHFAlAoTDNL1zrfyYRldq) y usamos este formato:
+    videoUrl: "https://drive.google.com/uc?export=download&id=1iFI64TtGXoMSHFAlAoTDNL1zrfyYRldq" 
   },
   {
     id: 2,    
     title: "Diseño Premium",
     description: "Estilo limpio y contemporáneo. Verde oliva, blanco y negro",
-    driveUrl: "https://drive.google.com/file/d/1uXLhn7EV5PDEGtj2OcOh4D0PyjhihVnn/preview" // <-- Agregas la URL aquí
+    videoUrl: "https://drive.google.com/uc?export=download&id=1uXLhn7EV5PDEGtj2OcOh4D0PyjhihVnn" 
   },
   {
     id: 3,
     title: "Diseño Premium",
     description: "Elegante y formal. Blanco, negro y dorado",
-    driveUrl: "https://drive.google.com/file/d/1miNwTwZoYwB5OE8kBwAPD0A2FSOB2XSf/preview" // <-- Agregas la URL aquí
+    videoUrl: "https://drive.google.com/uc?export=download&id=1miNwTwZoYwB5OE8kBwAPD0A2FSOB2XSf" 
   },
 ];
 
@@ -64,7 +65,7 @@ function Index() {
         </p>
       </header>
 
-      <section
+<section
         aria-label="Galería de diseños"
         className="mx-auto flex max-w-md flex-col gap-8"
       >
@@ -73,14 +74,18 @@ function Index() {
             key={design.id}
             className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition-shadow duration-300 hover:shadow-md"
           >
-            <div className="aspect-[9/16] w-full bg-muted">
-        <iframe
-          src={design.driveUrl} /* <--- Ahora lee el link específico de cada diseño */
-          title={design.title}
-          className="h-full w-full border-0"
-          allow="autoplay"
-          loading="lazy"
-        />
+            <div className="aspect-[9/16] w-full bg-muted relative">
+              <video
+                src={design.videoUrl}
+                title={design.title}
+                className="h-full w-full object-cover"
+                controls // Agrega controles nativos limpios
+                playsInline // Crucial para que no se abra en pantalla completa automático en iOS
+                controlsList="nodownload" // Oculta el botón de descargar
+                preload="metadata"
+                // Si querés que parezcan Reels que se reproducen solos sin botones, 
+                // sacá "controls" y poné: autoPlay loop muted
+              />
             </div>
             <div className="p-5">
               <h2 className="font-display text-xl font-medium text-card-foreground">
