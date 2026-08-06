@@ -49,9 +49,12 @@ function Index() {
   return (
     <main className="min-h-screen bg-background px-5 py-8 sm:px-6 lg:px-8">
       <header className="mb-10 text-center">
-        <h1 className="font-display text-3xl font-semibold leading-tight tracking-tight text-foreground sm:text-4xl">
-          CATALOGO invitaciones digitales para bodas
+        <h1 className="font-display text-4xl font-semibold leading-none tracking-tight text-foreground sm:text-5xl">
+          CATALOGO
         </h1>
+        <span className="mt-2 block font-display text-xl font-medium text-primary sm:text-2xl">
+          invitaciones digitales para bodas
+        </span>
         <p className="mx-auto mt-3 max-w-md text-base text-muted-foreground">
           Elige el diseño que mejor cuente tu historia de amor.
         </p>
