@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { createFileRoute } from "@tanstack/react-router";
 
 const designs = [
@@ -5,16 +6,19 @@ const designs = [
     id: 1,
     title: "Diseño Clásico",
     description: "Elegancia atemporal para tu gran día.",
+    driveUrl: "https://drive.google.com/file/d/1iFI64TtGXoMSHFAlAoTDNL1zrfyYRldq/preview" // <-- Agregas la URL aquí
   },
   {
-    id: 2,
+    id: 2,    
     title: "Diseño Moderno",
     description: "Estilo limpio y contemporáneo.",
+    driveUrl: "https://drive.google.com/file/d/1uXLhn7EV5PDEGtj2OcOh4D0PyjhihVnn/preview" // <-- Agregas la URL aquí
   },
   {
     id: 3,
     title: "Diseño Floral",
     description: "Romance natural en cada detalle.",
+    driveUrl: "https://drive.google.com/file/d/1miNwTwZoYwB5OE8kBwAPD0A2FSOB2XSf/preview" // <-- Agregas la URL aquí
   },
 ];
 
@@ -70,13 +74,13 @@ function Index() {
             className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition-shadow duration-300 hover:shadow-md"
           >
             <div className="aspect-[9/16] w-full bg-muted">
-              <iframe
-                src="PEGAR_LINK_DE_DRIVE_AQUI"
-                title={design.title}
-                className="h-full w-full border-0"
-                allow="autoplay"
-                loading="lazy"
-              />
+        <iframe
+          src={design.driveUrl} /* <--- Ahora lee el link específico de cada diseño */
+          title={design.title}
+          className="h-full w-full border-0"
+          allow="autoplay"
+          loading="lazy"
+        />
             </div>
             <div className="p-5">
               <h2 className="font-display text-xl font-medium text-card-foreground">
