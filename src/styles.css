@@ -27,6 +27,7 @@
   --radius-3xl: calc(var(--radius) + 12px);
   --radius-4xl: calc(var(--radius) + 16px);
   --color-background: var(--background);
+  --color-background-gradient: var(--background-gradient);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
@@ -62,9 +63,16 @@
   --font-display: "Playfair Display", Georgia, serif;
 }
 
+@utility romantic-bg {
+  background-image:
+    radial-gradient(ellipse 120% 40% at 50% -5%, color-mix(in oklab, var(--primary) 10%, transparent), transparent),
+    linear-gradient(180deg, var(--background) 0%, var(--background-gradient) 50%, var(--background) 100%);
+}
+
 :root {
   --radius: 0.875rem;
   --background: oklch(0.971 0.045 19.654);
+  --background-gradient: oklch(0.985 0.030 355);
   --foreground: oklch(0.410 0.157 4.156);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.410 0.157 4.156);
@@ -100,6 +108,7 @@
 
 .dark {
   --background: oklch(0.410 0.157 4.156);
+  --background-gradient: oklch(0.450 0.120 355);
   --foreground: oklch(0.984 0.003 247.858);
   --card: oklch(0.527 0.216 5.364);
   --card-foreground: oklch(0.984 0.003 247.858);
