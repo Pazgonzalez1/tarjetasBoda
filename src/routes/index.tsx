@@ -47,7 +47,7 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   return (
-    <main className="min-h-screen bg-background px-5 py-8 sm:px-6 lg:px-8">
+    <main className="romantic-bg min-h-screen px-5 py-8 sm:px-6 lg:px-8">
       <header className="mb-10 text-center">
         <h1 className="font-display text-4xl font-semibold leading-none tracking-tight text-foreground sm:text-5xl">
           CATALOGO
