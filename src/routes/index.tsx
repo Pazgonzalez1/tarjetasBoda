@@ -69,7 +69,7 @@ function Index() {
             key={design.id}
             className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition-shadow duration-300 hover:shadow-md"
           >
-            <div className="aspect-video w-full bg-muted">
+            <div className="aspect-[9/16] w-full bg-muted">
               <iframe
                 src="PEGAR_LINK_DE_DRIVE_AQUI"
                 title={design.title}
